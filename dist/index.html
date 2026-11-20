@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d16">
+  <title>Anatomy Lab · 3D Human Atlas</title>
+  <link rel="stylesheet" href="style.css?v=8">
+</head>
+<body>
+<header>
+  <a class="brand" href="./">
+    <b aria-hidden="true">a⁺</b>
+    <span class="brand-text">Anatomy Lab</span>
+    <span class="badge">PRO 3D</span>
+  </a>
+  <div class="searchbox">
+    <label>
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input id="search" type="search" placeholder="Search 3,000+ structures…" aria-label="Find a structure" disabled>
+      <kbd>/</kbd>
+    </label>
+    <div id="results" hidden></div>
+  </div>
+  <button id="ai-toggle" class="ai-toggle-btn" title="Ask Anatomy AI (Generative AI Discussion)" aria-label="Toggle AI Assistant" aria-expanded="false">
+    <span class="ai-sparkle">✨</span>
+    <span class="ai-btn-text">Ask AI</span>
+  </button>
+  <button id="theme-toggle" title="Toggle theme (Studio Dark / Clinical Light)" aria-label="Toggle theme">☀️</button>
+  <button id="help" title="Controls and credits" aria-label="Controls and credits">?</button>
+</header>
+<main class="viewer" aria-label="3D anatomy explorer">
+  <canvas id="canvas" aria-label="Interactive 3D human anatomy. Use search to select a structure by name."></canvas>
+  <div class="selectors">
+    <div class="body-choice" role="group" aria-label="Body reference">
+      <button data-body="male" aria-pressed="true">Male</button>
+      <button data-body="female" aria-pressed="false">Female</button>
+    </div>
+    <select id="system-picker" aria-label="Anatomical system" disabled>
+      <option>Whole body</option>
+    </select>
+  </div>
+  <div class="title">
+    <h1 id="section-name">Whole body</h1>
+    <span id="count"></span>
+  </div>
+  <div id="loading" role="status">
+    <div class="spinner"></div>
+    <span id="loading-text">Loading anatomy…</span>
+  </div>
+  <button id="retry" hidden>Retry</button>
+  <section id="card" hidden aria-live="polite">
+    <div class="card-head">
+      <span id="part-system"></span>
+      <button id="close" aria-label="Close details">×</button>
+    </div>
+    <h2 id="part-name"></h2>
+    <i id="latin"></i>
+    <p id="part-note"></p>
+    <div class="card-actions">
+      <button id="focus"><span class="icon">⌖</span> Focus</button>
+      <button id="ai-ask-part" class="btn-ai-card" title="Discuss this structure with AI"><span class="icon">✨</span> Ask AI</button>
+      <a id="source" target="_blank" rel="noopener" hidden>Learn more ↗</a>
+    </div>
+  </section>
+  <div class="rail">
+    <button id="in" aria-label="Zoom in" title="Zoom in">+</button>
+    <button id="out" aria-label="Zoom out" title="Zoom out">−</button>
+    <button id="home" aria-label="Fit all structures" title="Fit all structures">⌖</button>
+    <button id="rotate" aria-label="Auto rotate" title="Auto rotate" aria-pressed="false">↻</button>
+    <button id="cam-mode" aria-label="Camera mode: 3D Perspective" title="Toggle Camera (3D Perspective / Ortho CAD)" aria-pressed="true">3D</button>
+  </div>
+  <div class="dock">
+    <nav aria-label="View angle">
+      <button data-angle="Front" aria-pressed="true">Front</button>
+      <button data-angle="Back">Back</button>
+      <button data-angle="Side">Side</button>
+      <button data-angle="Perspective">Perspective</button>
+    </nav>
+    <label for="explode">Separate parts <output id="amount">0%</output></label>
+    <input id="explode" type="range" min="0" max="100" value="0" disabled>
+  </div>
+
+  <!-- Generative AI Anatomy Chatbox Drawer -->
+  <aside id="ai-chatbox" class="ai-chatbox" hidden aria-label="Generative AI Anatomy Assistant">
+    <div class="ai-header">
+      <div class="ai-title">
+        <span class="ai-avatar">✨</span>
+        <div class="ai-name-col">
+          <strong>Anatomy AI</strong>
+          <span class="ai-status"><span class="status-dot"></span> <span id="ai-status-text">Ready · Context Aware</span></span>
+        </div>
+      </div>
+      <div class="ai-header-actions">
+        <button id="ai-clear-btn" title="Clear Chat History" aria-label="Clear Chat">🗑️</button>
+        <button id="ai-close-btn" title="Close AI Assistant" aria-label="Close Chat">×</button>
+      </div>
+    </div>
+
+    <div class="ai-context-banner" id="ai-context-banner">
+      <span class="context-label">3D Context:</span>
+      <span id="ai-context-text">Male · Whole body</span>
+    </div>
+
+    <div id="ai-messages" class="ai-messages" role="log" aria-live="polite"></div>
+
+    <div class="ai-suggestions" id="ai-suggestions"></div>
+
+    <form id="ai-form" class="ai-input-form">
+      <textarea id="ai-input" rows="1" placeholder="Ask about muscles, organs, blood supply, injuries…" aria-label="Message Anatomy AI"></textarea>
+      <button type="submit" id="ai-send-btn" aria-label="Send message" title="Send message">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </form>
+  </aside>
+</main>
+<dialog id="help-dialog">
+  <div class="dialog-header">
+    <h2>Interactive 3D Anatomy Lab</h2>
+    <button id="dismiss" aria-label="Close">×</button>
+  </div>
+  <p class="dialog-desc">Explore high-fidelity 3D human anatomy with realistic biological colors, tissue shaders, and interactive system dissection.</p>
+  <div class="shortcuts-grid">
+    <div class="shortcut-item"><kbd>Left Drag</kbd><span>Orbit / Rotate 3D body</span></div>
+    <div class="shortcut-item"><kbd>Scroll / Pinch</kbd><span>Zoom in / out smoothly</span></div>
+    <div class="shortcut-item"><kbd>Shift + Drag</kbd><span>Pan viewport</span></div>
+    <div class="shortcut-item"><kbd>Click / Tap</kbd><span>Inspect structure & details</span></div>
+    <div class="shortcut-item"><kbd>/</kbd><span>Focus search bar</span></div>
+    <div class="shortcut-item"><kbd>Esc</kbd><span>Close search or details card</span></div>
+  </div>
+  <div class="dialog-footer">
+    <a href="credits.html" class="credits-link">Model Credits & Licenses ↗</a>
+    <button id="dialog-done" class="btn-primary">Got it</button>
+  </div>
+</dialog>
+<script type="module" src="app.js?v=8"></script>
+</body>
+</html>

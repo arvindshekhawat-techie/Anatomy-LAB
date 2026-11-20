@@ -1,0 +1,15 @@
+# Secrets & Environment variables
+.env
+.env.local
+
+# Dependencies
+node_modules/
+
+# Local Scratch & Temp
+scratch/
+*.tmp
+*.log
+
+# OS metadata
+.DS_Store
+Thumbs.db

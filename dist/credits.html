@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d16">
+  <title>Model Credits & Licenses · Anatomy Lab</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090d16;
+      --card-bg: rgba(14, 19, 32, 0.78);
+      --border: rgba(255, 255, 255, 0.09);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #0ea5e9;
+      --accent-glow: rgba(14, 165, 233, 0.35);
+      --brand-gradient: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+    }
+    body {
+      font: 15px/1.65 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      max-width: 740px;
+      margin: 4vh auto;
+      padding: 28px 24px;
+    }
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13.5px;
+      margin-bottom: 24px;
+      transition: all 0.2s ease;
+    }
+    .back:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    h1 {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin: 0 0 16px;
+      background: var(--brand-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 32px 0 12px;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    p {
+      color: var(--text-muted);
+      margin: 0 0 16px;
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <a href="./" class="back">← Return to Anatomy Atlas</a>
+  <h1>Model Credits & Scientific Sources</h1>
+  <div class="card">
+    <p>The anatomical geometry was exported by <a href="https://github.com/nqwrc/3d-anatomy" target="_blank" rel="noopener">nqwrc/3d-anatomy</a> from <a href="https://github.com/Z-Anatomy/Models" target="_blank" rel="noopener">Z-Anatomy</a>, created by Gauthier Kervyn, Marcin Zielinski and contributors. Z-Anatomy — The open source atlas of anatomy — CC BY-SA 4.0. BodyParts3D — The Database Center for Life Science — CC BY-SA 2.1 Japan.</p>
+    <p>This edition combines the seven exports in their original coordinates. Adaptations include quantized geometry, realistic biological tissue colors, subsurface scattering approximation, curvature ambient shading, illustrative surface grain, and separation positions. Model files retain their applicable upstream licenses, including the component-specific terms in the <a href="specimen/LICENSE.txt">original license notice</a>.</p>
+    <p>Terminology and definitions come from the upstream <a href="https://github.com/nqwrc/3d-anatomy/tree/master/public/data" target="_blank" rel="noopener">lexicon and definitions</a>. Definitions reproduce short excerpts and link to the source article when supplied. Wikipedia-derived descriptions use the CC BY-SA and GFDL terms specified in the upstream notice. Spatial notes are calculated from the assembled model.</p>
+  </div>
+
+  <h2>Female Reference Atlas</h2>
+  <div class="card">
+    <p>The skin, pelvis and organs come from the HuBMAP Human Reference Atlas female reference set by Kristen Browne and Heidi Schlehlein (v1.10 with pelvic bones from v1.5). The lower-limb muscles include Visible Human Female geometry published by Thor E. Andreassen and colleagues. Supplemental skull, rib, arm and foot structures use fitted BodyParts3D skeletal geometry from a male reference. These structures are approximate. The female reference has limited upper-body muscle coverage.</p>
+    <p>The <a href="https://github.com/slorksmo/Human-Atlas/tree/5bb5713aab18d7fe9380c3339eb09f173491ea06" target="_blank" rel="noopener">source assembly</a> is repacked here with illustrative tissue colors and surface shading. This edition excludes pregnancy references and duplicate meshes, registers the left–right axis of the paired brain structures to the body, and integrates the supplemental musculature and skeleton into their respective system views. See the <a href="female-hra/ATTRIBUTION.md">upstream dataset attributions and licenses</a>.</p>
+    <p>3D WebGL rendering powered by <a href="vendor/THREE-LICENSE.txt">Three.js (MIT)</a>.</p>
+  </div>
+</body>
+</html>
